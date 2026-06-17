@@ -377,9 +377,16 @@
     document.getElementById('state-message').style.display = 'none';
   }
 
+  function renderStatusBar() {
+    const total = state.sections.reduce((sum, s) => sum + s.rows.length, 0);
+    document.getElementById('total-count').textContent =
+      `${total} keybindings · ${state.sections.length} sections`;
+  }
+
   function render() {
     renderSidebar();
     renderContent();
+    renderStatusBar();
   }
 
   loadCheatsheet()
@@ -394,6 +401,17 @@
   document.getElementById('search-input').addEventListener('input', e => {
     state.query = e.target.value.trim();
     render();
+  });
+
+  document.addEventListener('keydown', e => {
+    const input = document.getElementById('search-input');
+    if (e.key === '/' && document.activeElement !== input) {
+      e.preventDefault();
+      input.focus();
+    }
+    if (e.key === 'Escape' && document.activeElement === input) {
+      input.blur();
+    }
   });
 </script>
 
