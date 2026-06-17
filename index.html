@@ -4,8 +4,275 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚡ nvim keys</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0d1117;
+      --surface:      #161b22;
+      --border:       #21262d;
+      --border-muted: #30363d;
+      --text:         #e6edf3;
+      --text-muted:   #8b949e;
+      --text-dim:     #484f58;
+      --blue:         #58a6ff;
+      --green:        #3fb950;
+      --orange:       #ffa657;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .logo {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .logo .accent { color: var(--green); }
+
+    .search-wrap { flex: 1; max-width: 480px; position: relative; }
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 13px;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-muted);
+      border-radius: 6px;
+      padding: 7px 40px 7px 32px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: monospace;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+    .search-input:focus { border-color: var(--blue); }
+    .search-hint {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-family: monospace;
+    }
+
+    /* ── BODY ── */
+    .body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 210px;
+      min-width: 210px;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      padding: 0 8px 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: background 0.1s, color 0.1s;
+      user-select: none;
+    }
+    .nav-item:hover { background: var(--surface); color: var(--text); }
+    .nav-item.active {
+      background: var(--surface);
+      color: var(--blue);
+      border-left-color: var(--blue);
+    }
+    .nav-item.dimmed { opacity: 0.35; }
+    .nav-item .count {
+      margin-left: auto;
+      background: var(--border);
+      color: var(--text-dim);
+      font-size: 10px;
+      font-family: monospace;
+      padding: 1px 6px;
+      border-radius: 10px;
+      min-width: 20px;
+      text-align: center;
+    }
+    .nav-item.active .count { background: #1f3a5f; color: var(--blue); }
+
+    /* ── CONTENT ── */
+    .content { flex: 1; padding: 28px 36px; overflow-y: auto; }
+
+    .section-header { margin-bottom: 20px; }
+    .section-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .section-subtitle { font-size: 12px; color: var(--text-dim); font-family: monospace; }
+
+    .keys-table { width: 100%; border-collapse: collapse; }
+    .keys-table thead th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .keys-table tbody tr {
+      border-bottom: 1px solid var(--surface);
+      transition: background 0.1s, opacity 0.1s;
+    }
+    .keys-table tbody tr:hover { background: var(--surface); }
+    .keys-table tbody tr.dimmed { opacity: 0.3; }
+    .keys-table tbody td { padding: 10px 14px; vertical-align: middle; }
+
+    .key-cell { font-family: monospace; width: 260px; }
+    kbd {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border-muted);
+      border-bottom: 2px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      color: var(--orange);
+      font-family: monospace;
+    }
+    .action-cell { color: var(--text-muted); line-height: 1.5; }
+    .action-cell mark {
+      background: rgba(255, 166, 87, 0.2);
+      color: var(--orange);
+      border-radius: 2px;
+      padding: 0 2px;
+      font-style: normal;
+    }
+
+    /* ── STATUS BAR ── */
+    .status-bar {
+      background: #1c2128;
+      border-top: 1px solid var(--border);
+      padding: 4px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+    .mode-pill {
+      background: var(--green);
+      color: var(--bg);
+      padding: 1px 8px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+    .status-divider { color: var(--border-muted); }
+
+    .state-message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: var(--text-dim);
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-  <p>coming soon</p>
+
+<div class="top-bar">
+  <div class="logo">⚡ <span class="accent">nvim</span> keys</div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      id="search-input"
+      class="search-input"
+      type="text"
+      placeholder="Search any key or action..."
+      autocomplete="off"
+      spellcheck="false"
+    >
+    <span class="search-hint">/ to focus</span>
+  </div>
+</div>
+
+<div class="body">
+  <div class="sidebar">
+    <div class="sidebar-label">Sections</div>
+    <div id="sidebar-nav"></div>
+  </div>
+  <div class="content">
+    <div class="section-header">
+      <div class="section-title" id="section-title"></div>
+      <div class="section-subtitle" id="section-subtitle"></div>
+    </div>
+    <table class="keys-table" id="keys-table" style="display:none">
+      <thead><tr><th>Key</th><th>Action</th></tr></thead>
+      <tbody id="content-tbody"></tbody>
+    </table>
+    <div class="state-message" id="state-message">Loading...</div>
+  </div>
+</div>
+
+<div class="status-bar">
+  <span class="mode-pill">NORMAL</span>
+  <span class="status-divider">|</span>
+  <span>cheatsheet.md</span>
+  <span class="status-divider">|</span>
+  <span id="total-count">—</span>
+  <span class="status-divider" style="margin-left:auto">|</span>
+  <span>GitHub Pages</span>
+</div>
+
+<script>
+  // JS added in Tasks 3–7
+</script>
+
 </body>
 </html>
