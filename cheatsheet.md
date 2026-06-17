@@ -1,3 +1,5 @@
+<!-- To sync to site: cp ~/cheatsheet.md ~/nvim-cheatsheet/cheatsheet.md && cd ~/nvim-cheatsheet && git add cheatsheet.md && git commit -m "chore: sync cheatsheet.md" && git push -->
+
 # ⚡ WebStorm to Neovim + Cmux Master Cheatsheet
 
 ## 🏃 Basic Vim Motions (Moving Around)
