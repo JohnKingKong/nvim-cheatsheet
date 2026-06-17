@@ -11,6 +11,7 @@
 | `Ctrl+d` / `Ctrl+u` | Scroll Down half-page / Scroll Up half-page |
 | `%` | Jump to matching bracket/parenthesis |
 | `o` / `O` | Insert new line below / above current line |
+| <lineNb> gg or G | Go to line |
 
 ## 📝 Words & Fast Editing (Vim Grammar)
 | Key | Action |
