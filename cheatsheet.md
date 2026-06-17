@@ -1,26 +1,19 @@
-# ⚡ WebStorm to Neovim + Cmux Cheatsheet
+# ⚡ WebStorm to Neovim + Cmux Master Cheatsheet
 
-## 🤖 AI (Supermaven)
+## 🏃 Basic Vim Motions (Moving Around)
 | Key | Action |
 | :--- | :--- |
-| `<M-l>` | Accept full suggestion |
-| `<M-j>` | Accept word-by-word |
-| `<M-]>` | Clear suggestion |
-| `Ctrl+e` | Close standard autocomplete menu |
+| `h` / `j` / `k` / `l` | Left / Down / Up / Right |
+| `gg` / `G` | Jump to the very top / very bottom of file |
+| `0` / `^` / `$` | Jump to start of line / first character / end of line |
+| `Ctrl+d` / `Ctrl+u` | Scroll Down half-page / Scroll Up half-page |
+| `%` | Jump to matching bracket/parenthesis |
+| `o` / `O` | Insert new line below / above current line |
 
-## 🔍 Search & Files (Snacks / Telescope)
+## 📝 Words & Fast Editing (Vim Grammar)
 | Key | Action |
 | :--- | :--- |
-| `<leader><space>` | Find Files (Search by name) |
-| `<leader>/` | Grep (Search for text inside files) |
-| `<leader>e` | Toggle Neo-tree (File explorer sidebar) |
-| `<leader>bd` | Close current buffer (keeps window open) |
-
-## 🧠 Code Navigation & Editing (LSP)
-| Key | Action |
-| :--- | :--- |
-| `K` | Hover Docs (Types, parameters, signatures) |
-| `gd` | Go to Definition |
+| `w` / `b` / `e` | Jump forward a word / backward a word / to end of word |
 | `ciw` | **Change Inner Word** (Deletes word under cursor, enters Insert mode) |
 | `diw` | **Delete Inner Word** (Deletes word under cursor) |
 | `yiw` | **Yank Inner Word** (Copies word under cursor) |
@@ -105,5 +98,3 @@
 | `:Octo review resume`| Re-open accidentally closed review diff |
 | `:Octo review discard`| Delete draft review (Fixes "pending review" error) |
 | `:Octo review submit` | Finalize review (Approve/Comment/Request) |
-
-
