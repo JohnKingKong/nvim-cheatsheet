@@ -312,13 +312,44 @@
 
   const state = { sections: [], activeIndex: 0, query: '' };
 
-  function render() { /* filled in Tasks 4–7 */ }
+  function matchRow(row, query) {
+    if (!query) return true;
+    const q = query.toLowerCase();
+    return row.key.toLowerCase().includes(q) || row.action.toLowerCase().includes(q);
+  }
+
+  function matchCount(section, query) {
+    if (!query) return section.rows.length;
+    return section.rows.filter(r => matchRow(r, query)).length;
+  }
+
+  function renderSidebar() {
+    document.getElementById('sidebar-nav').innerHTML = state.sections
+      .map((section, i) => {
+        const count = matchCount(section, state.query);
+        const active = i === state.activeIndex ? 'active' : '';
+        const dimmed = state.query && count === 0 ? 'dimmed' : '';
+        return `<div class="nav-item ${active} ${dimmed}" onclick="setActive(${i})">
+          ${escapeHtml(section.title)}
+          <span class="count">${count}</span>
+        </div>`;
+      })
+      .join('');
+  }
+
+  function setActive(index) {
+    state.activeIndex = index;
+    render();
+  }
+
+  function render() {
+    renderSidebar();
+  }
 
   loadCheatsheet()
     .then(sections => {
       state.sections = sections;
-      console.log('Parsed:', sections.map(s => `${s.title} (${s.rows.length})`));
-      document.getElementById('state-message').textContent = 'Parse OK';
+      render();
     })
     .catch(err => {
       document.getElementById('state-message').textContent = `Error: ${err.message}`;
