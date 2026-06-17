@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚡ nvim keys</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@18.0.5/marked.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -392,6 +392,10 @@
   loadCheatsheet()
     .then(sections => {
       state.sections = sections;
+      if (sections.length === 0) {
+        document.getElementById('state-message').textContent = 'No sections found in cheatsheet.md';
+        return;
+      }
       render();
     })
     .catch(err => {
