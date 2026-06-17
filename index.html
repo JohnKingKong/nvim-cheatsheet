@@ -390,6 +390,11 @@
     .catch(err => {
       document.getElementById('state-message').textContent = `Error: ${err.message}`;
     });
+
+  document.getElementById('search-input').addEventListener('input', e => {
+    state.query = e.target.value.trim();
+    render();
+  });
 </script>
 
 </body>
