@@ -271,7 +271,58 @@
 </div>
 
 <script>
-  // JS added in Tasks 3–7
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  async function loadCheatsheet() {
+    const res = await fetch('cheatsheet.md');
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching cheatsheet.md`);
+    const markdown = await res.text();
+    const html = marked.parse(markdown);
+
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+
+    const sections = [];
+    temp.querySelectorAll('h2').forEach(h2 => {
+      const table = h2.nextElementSibling;
+      if (!table || table.tagName !== 'TABLE') return;
+      const rows = [];
+      table.querySelectorAll('tbody tr').forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        if (cells.length >= 2) {
+          rows.push({
+            key: cells[0].textContent.trim(),
+            action: cells[1].textContent.trim(),
+          });
+        }
+      });
+      sections.push({ title: h2.textContent.trim(), rows });
+    });
+    return sections;
+  }
+
+  const state = { sections: [], activeIndex: 0, query: '' };
+
+  function render() { /* filled in Tasks 4–7 */ }
+
+  loadCheatsheet()
+    .then(sections => {
+      state.sections = sections;
+      console.log('Parsed:', sections.map(s => `${s.title} (${s.rows.length})`));
+      document.getElementById('state-message').textContent = 'Parse OK';
+    })
+    .catch(err => {
+      document.getElementById('state-message').textContent = `Error: ${err.message}`;
+    });
 </script>
 
 </body>
