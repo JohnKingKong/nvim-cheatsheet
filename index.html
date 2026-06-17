@@ -342,8 +342,44 @@
     render();
   }
 
+  function highlight(text, query) {
+    if (!query) return escapeHtml(text);
+    const re = new RegExp(`(${escapeRegex(query)})`, 'gi');
+    return text.split(re).map((part, i) =>
+      i % 2 === 1
+        ? `<mark>${escapeHtml(part)}</mark>`
+        : escapeHtml(part)
+    ).join('');
+  }
+
+  function renderContent() {
+    const section = state.sections[state.activeIndex];
+    if (!section) return;
+
+    const count = matchCount(section, state.query);
+    document.getElementById('section-title').textContent = section.title;
+    document.getElementById('section-subtitle').textContent = state.query
+      ? `${count} match${count !== 1 ? 'es' : ''} for "${state.query}"`
+      : `${section.rows.length} keybindings`;
+
+    document.getElementById('content-tbody').innerHTML = section.rows
+      .map(row => {
+        const matches = matchRow(row, state.query);
+        const dimmed = state.query && !matches ? 'dimmed' : '';
+        return `<tr class="${dimmed}">
+          <td class="key-cell"><kbd>${escapeHtml(row.key)}</kbd></td>
+          <td class="action-cell">${highlight(row.action, state.query)}</td>
+        </tr>`;
+      })
+      .join('');
+
+    document.getElementById('keys-table').style.display = '';
+    document.getElementById('state-message').style.display = 'none';
+  }
+
   function render() {
     renderSidebar();
+    renderContent();
   }
 
   loadCheatsheet()
