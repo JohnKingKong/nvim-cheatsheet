@@ -11,7 +11,7 @@
 | `Ctrl+d` / `Ctrl+u` | Scroll Down half-page / Scroll Up half-page |
 | `%` | Jump to matching bracket/parenthesis |
 | `o` / `O` | Insert new line below / above current line |
-| <lineNb> gg or G | Go to line |
+| `<lineNb>` gg or G | Go to line |
 
 ## 📝 Words & Fast Editing (Vim Grammar)
 | Key | Action |
@@ -37,6 +37,8 @@
 | `<leader>bd` | Close current buffer (keeps window open) |
 | `<leader>sk` | Search Keymaps (Find any forgotten shortcut!) |
 | `<leader>cm` | Open Mason (Install LSPs, linters, formatters) |
+| /`<word>` `<enter>` | Search for word occurence in the current file |
+| :noh `<enter>` | Clear search highlights |
 
 ## 🧠 Code Navigation & Refactoring (LSP)
 | Key | Action |
