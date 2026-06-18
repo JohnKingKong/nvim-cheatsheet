@@ -1,4 +1,4 @@
-<!-- To sync to site: cd ~/nvim-cheatsheet && git add cheatsheet.md && git commit -m "chore: sync cheatsheet.md" && git push -->
+<!-- To sync to site: cp ~/cheatsheet.md ~/nvim-cheatsheet/cheatsheet.md && cd ~/nvim-cheatsheet && git add cheatsheet.md && git commit -m "chore: sync cheatsheet.md" && git push -->
 
 # ⚡ WebStorm to Neovim + Cmux Master Cheatsheet
 
@@ -37,8 +37,6 @@
 | `<leader>bd` | Close current buffer (keeps window open) |
 | `<leader>sk` | Search Keymaps (Find any forgotten shortcut!) |
 | `<leader>cm` | Open Mason (Install LSPs, linters, formatters) |
-| /<word><enter> | Search for word occurence in the current file | 
-| :noh | Clear search highlights |
 
 ## 🧠 Code Navigation & Refactoring (LSP)
 | Key | Action |
