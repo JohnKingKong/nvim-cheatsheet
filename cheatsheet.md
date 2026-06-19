@@ -26,9 +26,9 @@
 | `va` | **Visual Select a Word** (Selects a word under cursor) |
 | `vi + " / { / [ / < / ( / )` | **Visual Select inside quotes/braces/brackets/angles/parentheses** |
 | `va + " / { / [ / < / ( / )` | **Visual Select around quote/brace/bracket/angle/parenthesis** |
-| 'yiw` | **Yank Inside Word** (Copies a word under cursor) |
-| 'va` | **Yank a Word** (Copies a word under cursor) |
-| 'ya + " / { / [ / < / ( / )` | **Yank Inside Quotes/Braces/Brackets/Angles/Parentheses** |
+| `yiw` | **Yank Inside Word** (Copies a word under cursor) |
+| `va` | **Yank a Word** (Copies a word under cursor) |
+| `ya + " / { / [ / < / ( / )` | **Yank Inside Quotes/Braces/Brackets/Angles/Parentheses** |
 | `daw` | **Delete a Word** (Deletes a word under cursor) |
 | `dd` / `yy` | Delete (cut) entire line / Yank (copy) entire line |
 | `p` / `P` | Paste after cursor / Paste before cursor |
@@ -64,10 +64,15 @@
 ## 🖥️ Layout & Windows (Cmux + Neovim)
 | Key | Action |
 | :--- | :--- |
-| `Cmd+Opt+Arrows` | **Cmux:** Move focus between Claude, Nvim, Terminal |
+| `Cmd+Opt+Arrows` | **Cmux:** Move focus between |
 | `Cmd+Shift+[` / `]` | **Cmux:** Cycle through your left-sidebar workspaces |
 | `Cmd+w` | **Cmux:** Close current cmux pane/window |
+| `Cmd+D` | **Cmux:** Split window horizontally |
+| `Cmd+Shift+D` | **Cmux:** Split window vertically |
 | `Ctrl+w` + `h/j/k/l` | **Nvim:** Move focus between internal splits |
+| `Cmd + crtl + ←/→/↑/↓ ` | **Cmux:** Resize current window |
+| `Cmd + ctrl + =` | **Cmux:** Make all splits exactly equal size |
+| `Cmd + Shift + <enter>` | **Cmux:** Maximize(zoom) current window (Press it again to unzoom) |
 | `Ctrl+w` + `v` | **Nvim:** Split window vertically |
 | `Ctrl+w` + `s` | **Nvim:** Split window horizontally |
 | `Ctrl+w` + `=` | **Nvim:** Make all splits exactly equal size |
