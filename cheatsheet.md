@@ -12,6 +12,8 @@
 | `%` | Jump to matching bracket/parenthesis |
 | `o` / `O` | Insert new line below / above current line |
 | `<lineNb>` gg or G | Go to line |
+| `<diffLineNb>` `<kk / gg>`  | Jump to this number of line up/down |
+| `zz` | Center current line |
 
 ## 📝 Words & Fast Editing (Vim Grammar)
 | Key | Action |
@@ -20,6 +22,14 @@
 | `ciw` | **Change Inner Word** (Deletes word under cursor, enters Insert mode) |
 | `diw` | **Delete Inner Word** (Deletes word under cursor) |
 | `yiw` | **Yank Inner Word** (Copies word under cursor) |
+| `viw` | **Visual Select Inner Word** (Selects word under cursor) |
+| `va` | **Visual Select a Word** (Selects a word under cursor) |
+| `vi + " / { / [ / < / ( / )` | **Visual Select inside quotes/braces/brackets/angles/parentheses** |
+| `va + " / { / [ / < / ( / )` | **Visual Select around quote/brace/bracket/angle/parenthesis** |
+| 'yiw` | **Yank Inside Word** (Copies a word under cursor) |
+| 'va` | **Yank a Word** (Copies a word under cursor) |
+| 'ya + " / { / [ / < / ( / )` | **Yank Inside Quotes/Braces/Brackets/Angles/Parentheses** |
+| `daw` | **Delete a Word** (Deletes a word under cursor) |
 | `dd` / `yy` | Delete (cut) entire line / Yank (copy) entire line |
 | `p` / `P` | Paste after cursor / Paste before cursor |
 | `u` / `Ctrl+r` | Undo / Redo |
