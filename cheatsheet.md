@@ -3,118 +3,118 @@
 # ⚡ WebStorm to Neovim + Cmux Master Cheatsheet
 
 ## 🏃 Basic Vim Motions (Moving Around)
+
 | Key | Action |
 | :--- | :--- |
 | `h` / `j` / `k` / `l` | Left / Down / Up / Right |
 | `gg` / `G` | Jump to the very top / very bottom of file |
 | `0` / `^` / `$` | Jump to start of line / first character / end of line |
 | `Ctrl+d` / `Ctrl+u` | Scroll Down half-page / Scroll Up half-page |
-| `%` | Jump to matching bracket/parenthesis |
-| `o` / `O` | Insert new line below / above current line |
-| `<lineNb>` gg or G | Go to line |
-| `<diffLineNb>` `<kk / gg>`  | Jump to this number of line up/down |
-| `zz` | Center current line |
+| `%` | Jump to matching bracket, brace, or parenthesis |
+| `o` / `O` | Insert new line below / above current line and enter Insert Mode |
+| `<lineNb>gg` or `G` | Go directly to specific line number |
+| `zz` / `zt` / `zb` | Center current line / Top of screen / Bottom of screen |
+| `H` / `M` / `L` | Move cursor to High / Middle / Low positions of current viewport |
 
 ## 📝 Words & Fast Editing (Vim Grammar)
+
 | Key | Action |
 | :--- | :--- |
 | `w` / `b` / `e` | Jump forward a word / backward a word / to end of word |
+| `W` / `B` / `E` | Jump forward/backward/end of space-separated WORD |
 | `ciw` | **Change Inner Word** (Deletes word under cursor, enters Insert mode) |
 | `diw` | **Delete Inner Word** (Deletes word under cursor) |
-| `yiw` | **Yank Inner Word** (Copies word under cursor) |
+| `yiw` | **Yank Inner Word** (Copies word under cursor without whitespace) |
 | `viw` | **Visual Select Inner Word** (Selects word under cursor) |
-| `va` | **Visual Select a Word** (Selects a word under cursor) |
-| `vi + " / { / [ / < / ( / )` | **Visual Select inside quotes/braces/brackets/angles/parentheses** |
-| `va + " / { / [ / < / ( / )` | **Visual Select around quote/brace/bracket/angle/parenthesis** |
-| `yiw` | **Yank Inside Word** (Copies a word under cursor) |
-| `va` | **Yank a Word** (Copies a word under cursor) |
-| `ya + " / { / [ / < / ( / )` | **Yank Inside Quotes/Braces/Brackets/Angles/Parentheses** |
-| `daw` | **Delete a Word** (Deletes a word under cursor) |
+| `vi"` / `vi{` / `vi[` | Visual Select inside quotes, curly braces, or brackets |
+| `va"` / `va{` / `va[` | Visual Select around quotes, curly braces, or brackets (includes markers) |
+| `ci"` / `ci{` / `ci[` | Change inside quotes, curly braces, or brackets (instantly clears block) |
+| `di"` / `di{` / `di[` | Delete inside quotes, curly braces, or brackets |
+| `daw` | **Delete a Word** (Deletes a word under cursor plus trailing whitespace) |
 | `dd` / `yy` | Delete (cut) entire line / Yank (copy) entire line |
 | `p` / `P` | Paste after cursor / Paste before cursor |
 | `u` / `Ctrl+r` | Undo / Redo |
-| `x` | Delete character under cursor |
+| `x` / `X` | Delete character under cursor / Delete character before cursor |
+| `.` | **Repeat** the last modifying editing action |
 
 ## 🔍 Search, Files & LazyVim Essentials
+
 | Key | Action |
 | :--- | :--- |
-| `<leader><space>` | Find Files (Search by filename) |
-| `<leader>/` | Grep (Search for text inside all files) |
-| `<leader>e` | Toggle Neo-tree (File explorer sidebar) |
-| `<leader>w` | Save current file |
-| `<leader>qq` | Quit Neovim completely |
-| `]b` / `[b` | Switch to next / previous open buffer (tab) |
-| `<leader>bd` | Close current buffer (keeps window open) |
-| `<leader>sk` | Search Keymaps (Find any forgotten shortcut!) |
-| `<leader>cm` | Open Mason (Install LSPs, linters, formatters) |
-| /`<word>` `<enter>` | Search for word occurence in the current file |
-| :noh `<enter>` | Clear search highlights |
+| `<leader><space>` | Find Files (Fuzzy search by filename) |
+| `<leader>/` | Live Grep (Search for text tokens inside all workspace files) |
+| `<leader>e` | Toggle Neo-tree (File explorer sidebar tree view) |
+| `<leader>w` | Save current file buffer changes |
+| `<leader>qq` | Quit Neovim cleanly completely |
+| `]b` / `[b` | Switch to next / previous open buffer tab |
+| `<leader>bd` | Close current buffer (keeps active window layout intact) |
+| `<leader>sk` | Search Keymaps (Find any missing shortcut interactively!) |
+| `<leader>cm` | Open Mason setup manager (LSPs, linters, formatters) |
+| `/`\<word\> | Search forward for matching text occurrences inside current file |
+| `?`\<word\> | Search backward for matching text occurrences inside current file |
+| `n` / `N` | Cycle forward / backward through active search matches |
+| `:noh` | Clear active search visual highlighting masks |
 
 ## 🧠 Code Navigation & Refactoring (LSP)
+
 | Key | Action |
 | :--- | :--- |
-| `K` | Hover Docs (Types, parameters, signatures) |
+| `K` | Hover Docs (Inspect engine types, parameters, parameters) |
 | `gd` | Go to Definition |
-| `gr` | Go to References (Project-wide usages) |
+| `gr` | Go to References (Find usages project-wide) |
 | `gI` | Go to Implementation |
-| `<leader>cr` | Rename variable/function across the entire project |
-| `<leader>ca` | Code Action (Quick fixes, auto-imports) |
-| `]d` / `[d` | Jump to next / previous code error or warning |
+| `gy` | Go to Type Definition |
+| `<leader>cr` | Rename variable/function symbol safely across entire project |
+| `<leader>ca` | Code Action (Triggers quick-fixes, automatic imports, fixes) |
+| `]d` / `[d` | Jump to next / previous code syntax error or warning flag |
 
 ## 🖥️ Layout & Windows (Cmux + Neovim)
-| Key | Action |
-| :--- | :--- |
-| `Cmd+Opt+Arrows` | **Cmux:** Move focus between |
-| `Cmd+Shift+[` / `]` | **Cmux:** Cycle through your left-sidebar workspaces |
-| `Cmd+w` | **Cmux:** Close current cmux pane/window |
-| `Cmd+D` | **Cmux:** Split window horizontally |
-| `Cmd+Shift+D` | **Cmux:** Split window vertically |
-| `Ctrl+w` + `h/j/k/l` | **Nvim:** Move focus between internal splits |
-| `Cmd + crtl + ←/→/↑/↓ ` | **Cmux:** Resize current window |
-| `Cmd + ctrl + =` | **Cmux:** Make all splits exactly equal size |
-| `Cmd + Shift + <enter>` | **Cmux:** Maximize(zoom) current window (Press it again to unzoom) |
-| `Ctrl+w` + `v` | **Nvim:** Split window vertically |
-| `Ctrl+w` + `s` | **Nvim:** Split window horizontally |
-| `Ctrl+w` + `=` | **Nvim:** Make all splits exactly equal size |
-| `Ctrl+w` + `q` | **Nvim:** Close current Neovim split |
 
-## 🤖 AI (Supermaven)
 | Key | Action |
 | :--- | :--- |
-| `<M-l>` | Accept full suggestion (Ghost text) |
-| `<M-j>` | Accept suggestion word-by-word |
-| `<M-]>` | Clear current suggestion |
-| `Ctrl+e` | Close standard autocomplete menu (if blocking) |
+| `Cmd+Opt+Arrows` | **Cmux:** Move focus directionally between panels |
+| `Cmd+Shift+[` / `]` | **Cmux:** Cycle through left-sidebar system workspaces |
+| `Cmd+w` | **Cmux:** Close current focused split/window tab |
+| `Cmd+D` | **Cmux:** Split current screen window horizontally |
+| `Cmd+Shift+D` | **Cmux:** Split current screen window vertically |
+| `Cmd+Ctrl+Arrows` | **Cmux:** Resize size profiles of current active window partition |
+| `Cmd+Ctrl+=` | **Cmux:** Balance all open cmux window partitions to equal sizes |
+| `Cmd+Shift+Enter` | **Cmux:** Toggle Maximize/Zoom focus profile on current partition |
+| `Ctrl+w` + `h/j/k/l` | **Nvim:** Move directional focus between internal code windows |
+| `Ctrl+w` + `v` | **Nvim:** Create a vertical code window split |
+| `Ctrl+w` + `s` | **Nvim:** Create a horizontal code window split |
+| `Ctrl+w` + `=` | **Nvim:** Force all internal splits to balanced equal sizing scales |
+| `Ctrl+w` + `q` | **Nvim:** Close current internal Neovim split pane |
 
-## 🔄 Git Diffs (`diffview.nvim`)
-| Key | Action |
-| :--- | :--- |
-| `<leader>gD` | Open Diffview (WebStorm side-by-side commit view) |
-| `<leader>gC` | Close Diffview |
-| `zR` / `zM` | Unfold full file / Fold unchanged lines |
-| `]c` / `[c` | Jump to next / previous changed code block |
-| `s` / `u` | Stage / Unstage highlighted file (in bottom panel) |
-| `X` | Discard all changes in highlighted file |
+## 🤖 AI Core Integrations
 
-## 🚀 Git Workspace (LazyGit: `<leader>gg`)
 | Key | Action |
 | :--- | :--- |
-| `1`-`5` | Switch panels (Status, Files, Branches, Commits) |
-| `Space` | Toggle stage (Files) OR Checkout (Branches) |
-| `a` | Stage ALL modified files |
-| `c` | Quick inline commit |
-| `C` | Commit using Neovim editor (Loads your PR template) |
-| `P` | Push commits to origin |
-| `n` | Create new branch |
-| `o` | Open PR in web browser |
-| `q` | Quit LazyGit |
+| `<M-l>` | **Supermaven:** Accept full inline code generation suggestions |
+| `<M-j>` | **Supermaven:** Accept ghost text suggestions word-by-word |
+| `<M-]>` | **Supermaven:** Clear/dismiss active predictive suggestions |
+| `Ctrl+e` | Dismiss local completion popup lists when blocking ghost lines |
+| `<leader>ca` | **Claude-Reviewer:** Approve intercepted Claude Code diff edits |
+| `<leader>cd` | **Claude-Reviewer:** Reject/Abort intercepted Claude Code modifications |
+
+## 🔄 Git Tools & Diffs
+
+| Key | Action |
+| :--- | :--- |
+| `<leader>gD` | **Diffview:** Open comprehensive side-by-side Git workspace tree index |
+| `<leader>gC` | **Diffview:** Close workspace comparison layout environment |
+| `zR` / `zM` | Expand all structural folds / Collapse all folds to hide unchanged zones |
+| `]c` / `[c` | Jump directly to next / previous modified line code hunks |
+| `s` / `u` | Stage / Unstage current highlighted file targets (inside git console trees) |
+| `X` | Discard all tracked modifications safely inside target file bounds |
 
 ## 🐙 GitHub PR Reviews (`octo.nvim`)
-| Command / Key | Action |
+
+| Key / Command | Action |
 | :--- | :--- |
-| `<leader>gp` | List open PRs to review |
-| `:Octo review start` | Start draft review (Opens Diffview comparison) |
-| `\ca` | Add Comment to line (While looking at PR diff) |
-| `:Octo review resume`| Re-open accidentally closed review diff |
-| `:Octo review discard`| Delete draft review (Fixes "pending review" error) |
-| `:Octo review submit` | Finalize review (Approve/Comment/Request) |
+| `<leader>gp` | Open query panel selector listing global pending open repository PR lines |
+| `:Octo review start` | Initialize pull request design draft sequence comparisons |
+| `\ca` | Inject structural context comments into lines within PR diff files |
+| `:Octo review resume` | Re-open localized pull preview spaces when window crashes |
+| `:Octo review discard` | Safely clear active review loops when sync processes hang |
+| `:Octo review submit` | Deliver formal execution findings (Approve, Comment, Changes Request) |

@@ -373,8 +373,13 @@
       .map(row => {
         const matches = matchRow(row, state.query);
         const dimmed = state.query && !matches ? 'dimmed' : '';
+        const keysHtml = row.key.split(/\s*([\+/]|or)\s*/).map(part => {
+          if (part === '+' || part === '/' || part === 'or') return ` <span style="color:var(--text-dim)">${part}</span> `;
+          return `<kbd>${escapeHtml(part)}</kbd>`;
+        }).join('');
+
         return `<tr class="${dimmed}">
-          <td class="key-cell"><kbd>${escapeHtml(row.key)}</kbd></td>
+          <td class="key-cell">${keysHtml}</td>
           <td class="action-cell">${highlight(row.action, state.query)}</td>
         </tr>`;
       })
